@@ -250,6 +250,31 @@ local default_plugins = {
       require "plugins.configs.conform"
     end,
   },
+  {
+    "stevearc/aerial.nvim",
+    lazy = true,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {
+      on_attach = function(bufnr)
+        -- Jump forwards/backwards with '{' and '}'
+        vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+        vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+      end,
+
+      layout = {
+        resize_to_content = true,
+        max_width = { 30 },
+        min_width = { 30 },
+      },
+    },
+    -- You probably also want to set a keymap to toggle aerial
+    keys = {
+      { "<leader>a", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial" },
+    },
+  },
 }
 
 local config = require("core.utils").load_config()
