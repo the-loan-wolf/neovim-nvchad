@@ -40,28 +40,40 @@ M.capabilities.textDocument.completion.completionItem = {
   },
 }
 
-require("lspconfig").lua_ls.setup {
-  on_init = M.on_init,
-  on_attach = M.on_attach,
-  capabilities = M.capabilities,
+-- require("lspconfig").lua_ls.setup {
+--   on_init = M.on_init,
+--   on_attach = M.on_attach,
+--   capabilities = M.capabilities,
+--
+--   settings = {
+--     Lua = {
+--       diagnostics = {
+--         globals = { "vim" },
+--       },
+--       workspace = {
+--         library = {
+--           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+--           [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+--           [vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types"] = true,
+--           [vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
+--         },
+--         maxPreload = 100000,
+--         preloadFileSize = 10000,
+--       },
+--     },
+--   },
+-- }
 
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { "vim" },
-      },
-      workspace = {
-        library = {
-          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-          [vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types"] = true,
-          [vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy"] = true,
-        },
-        maxPreload = 100000,
-        preloadFileSize = 10000,
-      },
-    },
-  },
-}
+local servers = { "html", "cssls", "clangd", "lua_ls", "ts_ls", "kotlin_language_server", "emmet_language_server", "jdtls", "tailwindcss" }
+
+-- lsps with default config
+require("lspconfig")
+for _, lsp in ipairs(servers) do
+  require("lspconfig")[lsp].setup {
+    on_attach = M.on_attach,
+    on_init = M.on_init,
+    capabilities = M.capabilities,
+  }
+end
 
 return M
