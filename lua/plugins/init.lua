@@ -275,6 +275,15 @@ local default_plugins = {
       { "<leader>a", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial" },
     },
   },
+  {
+    "barrett-ruth/live-server.nvim",
+    build = "pnpm add -g live-server",
+    cmd = { "LiveServerStart", "LiveServerStop" },
+    config = true,
+    keys = {
+      { "<leader>i", "<cmd>LiveServerToggle<CR>", desc = "Toggle Live Server" },
+    },
+  },
 }
 
 local config = require("core.utils").load_config()
